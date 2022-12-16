@@ -6,8 +6,9 @@ import Signup from '../../components/Signup';
 
 const SignupPage = () => {
 	const supabase = useSupabaseClient();
+	const session = useSession();
 
-	return <Signup supabase={supabase} />;
+	return <Signup supabase={supabase} session={session} />;
 };
 
 export default SignupPage;

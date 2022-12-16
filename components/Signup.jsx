@@ -6,39 +6,53 @@ const Signup = ({ supabase }) => {
 	const [username, setUsername] = useState('');
 	const [password, setPassword] = useState('');
 	const [passwordConfirm, setPasswordConfirm] = useState('');
+	const [alert, setAlert] = useState('');
 	const [loading, setLoading] = useState(false);
-	const [error, setError] = useState(null);
+	const [error, setError] = useState('');
+
+	const resetForm = () => {
+		setEmail('');
+		setUsername('');
+		setPassword('');
+		setPasswordConfirm('');
+		setAlert('');
+		setLoading(false);
+		setError('');
+	};
 
 	const handleSubmit = async (e) => {
 		e.preventDefault();
 		setLoading(true);
-		setError(null);
-
+		setError('');
 		if (password !== passwordConfirm) {
 			setError('Passwords do not match');
 			setLoading(false);
 			return;
 		}
-
-		const { error } = await supabase.auth.signUp({
+		const { user, error } = await supabase.auth.signUp({
 			email,
 			password,
-
-			// Optional fields
-			data: {
-				username,
+			options: {
+				data: {
+					username,
+				},
 			},
 		});
 
 		if (error) {
+			console.log(error);
 			setError(error.message);
+		} else {
+			resetForm();
+			setAlert('Check your email for the confirmation link');
 		}
-		setLoading(false);
 	};
 
 	return (
 		<div>
 			<h1>Signup</h1>
+			{alert && <p>{alert}</p>}
+			{error && <p>{error}</p>}
 			<form onSubmit={handleSubmit}>
 				<label htmlFor="email">Email</label>
 				<input

@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useState, useRouter } from 'react';
 import { createBrowserSupabaseClient } from '@supabase/auth-helpers-nextjs';
 import { SessionContextProvider } from '@supabase/auth-helpers-react';
 
@@ -7,6 +7,7 @@ import Navbar from '../components/Navbar';
 import '../styles/globals.css';
 
 function MyApp({ Component, pageProps }) {
+	// const router = useRouter();
 	const [supabaseClient] = useState(() => createBrowserSupabaseClient());
 
 	return (

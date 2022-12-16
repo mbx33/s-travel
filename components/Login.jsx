@@ -1,34 +1,34 @@
-import { redirect } from 'next/dist/server/api-utils';
 import Link from 'next/link';
 import { useState } from 'react';
 
-const Login = ({ supabase }) => {
+const Login = ({ supabase, session }) => {
 	const [email, setEmail] = useState('');
 	const [password, setPassword] = useState('');
 	const [loading, setLoading] = useState(false);
 	const [error, setError] = useState(null);
+	const [message, setMessage] = useState(null);
 
-	const handleSubmit = async () => {
+	const handleSubmit = async (e) => {
 		e.preventDefault();
-		setLoading(true);
-		setError(null);
-
-		const { data, error } = await supabase.auth.signInWithPassword({
+		const { user, error } = await supabase.auth.signInWithPassword({
 			email,
 			password,
 		});
 
 		if (error) {
-			setLoading(false);
+			console.log(error);
 			setError(error.message);
+		} else {
+			setLoading(false);
+			setMessage('Logged in');
 		}
-		setLoading(false);
-		//redirect to tours page
 	};
 
 	return (
 		<div>
 			<h1>Login</h1>
+			{message && <p>{message}</p>}
+			{error && <p>{error}</p>}
 			<form onSubmit={handleSubmit}>
 				<label htmlFor="email">Email</label>
 				<input

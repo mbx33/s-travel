@@ -2,15 +2,13 @@ import React from 'react';
 import Link from 'next/link';
 
 import { useSession, useSupabaseClient } from '@supabase/auth-helpers-react';
-import { redirect } from 'next/dist/server/api-utils';
 
-const Navbar = (res, req) => {
+const Navbar = () => {
 	const supabase = useSupabaseClient();
 	const session = useSession();
 
 	const handleLogout = () => {
 		supabase.auth.signOut();
-		res.redirect('/');
 	};
 
 	return (
@@ -25,7 +23,7 @@ const Navbar = (res, req) => {
 					</li>
 					{session && (
 						<li onClick={handleLogout} style={{ cursor: 'pointer' }}>
-							Logout
+							<button>Logout</button>
 						</li>
 					)}
 					{/* <li className="navbar__item">
