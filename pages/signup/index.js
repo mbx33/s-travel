@@ -1,4 +1,5 @@
 import React from 'react';
+import Head from 'next/head';
 
 import { useSession, useSupabaseClient } from '@supabase/auth-helpers-react';
 
@@ -8,7 +9,11 @@ const SignupPage = () => {
 	const supabase = useSupabaseClient();
 	const session = useSession();
 
-	return <Signup supabase={supabase} session={session} />;
+	return (
+		<div>
+			<Signup supabase={supabase} session={session} />;
+		</div>
+	);
 };
 
 export default SignupPage;

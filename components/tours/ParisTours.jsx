@@ -1,10 +1,22 @@
 import React from 'react';
 
-const ParisTours = ({ tour }) => {
+const ParisTours = ({ tours }) => {
+	console.log(tours, 'parisTour component render');
+
 	return (
 		<div>
 			<h1>Paris Tours</h1>
-			<p>This will be info about the Paris Tour</p>
+			{tours &&
+				tours.map((tour) => {
+					const { name, base_price: price } = tour;
+					return (
+						<div key={tour.id}>
+							<h3>
+								{name} <span> ${price}</span>
+							</h3>
+						</div>
+					);
+				})}
 		</div>
 	);
 };
