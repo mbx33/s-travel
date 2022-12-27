@@ -1,0 +1,43 @@
+.navbar {
+	display: flex;
+	justify-content: space-between;
+	align-items: center;
+	padding: 0 2rem;
+	background-color: hsl(272, 44%, 13%);
+	box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+	position: fixed;
+	top: 0;
+	left: 0;
+	right: 0;
+}
+
+.menu {
+	display: flex;
+	gap: 2rem;
+}
+
+.menu li {
+	list-style-type: none;
+}
+
+.link {
+	position: relative;
+	text-decoration: none;
+	font-size: 1.9rem;
+	color: hsl(272, 44%, 53%);
+}
+
+.link::before {
+	content: '';
+	position: absolute;
+	width: 0;
+	height: 2px;
+	bottom: -2px;
+	left: 0;
+	background-color: hsl(272, 44%, 53%);
+	transition: width 0.3s ease-in-out;
+}
+
+.link:hover::before {
+	width: 100%;
+}

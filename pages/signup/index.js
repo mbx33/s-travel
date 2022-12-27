@@ -11,7 +11,7 @@ const SignupPage = () => {
 
 	return (
 		<div>
-			<Signup supabase={supabase} session={session} />;
+			<Signup supabase={supabase} session={session} />
 		</div>
 	);
 };
