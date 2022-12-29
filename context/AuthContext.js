@@ -63,25 +63,9 @@ export function AuthProvider({ children }) {
 		}
 	}
 
-	useEffect(() => {
-		const user = supabase.auth.getUser();
-		setCurrentUser(user);
-		setLoading(false);
-
-		const auth = supabase.auth.onAuthStateChange((event, session) => {
-			if (event === 'SIGNED_IN') {
-				setLoading(false);
-				setCurrentUser(session.user);
-			}
-			if (event === 'SIGNED_OUT') {
-				setLoading(false);
-				setCurrentUser(null);
-			}
-		});
-	}, [supabase.auth]);
+	
 
 	const value = {
-		currentUser,
 		message,
 		login,
 		signup,
@@ -90,6 +74,6 @@ export function AuthProvider({ children }) {
 	};
 
 	return (
-		<AuthContext.Provider value={value}>{!loading && children}</AuthContext.Provider>
+		<AuthContext.Provider value={value}>{children}</AuthContext.Provider>
 	);
 }

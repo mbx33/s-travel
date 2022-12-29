@@ -3,7 +3,6 @@ import { useUser, useSupabaseClient, useSession } from '@supabase/auth-helpers-r
 import { useState, useEffect } from 'react';
 
 // component imports
-import Signup from '../components/Signup';
 import ParisHero from '../components/hero/ParisHero';
 
 // style imports
@@ -12,35 +11,6 @@ export default function Home() {
 	const session = useSession();
 	const user = useUser();
 	const supabase = useSupabaseClient();
-	const [userProfile, setUserProfile] = useState(null);
-
-	useEffect(() => {
-		const getUserProfiles = async () => {
-			const { data: profiles, error } = await supabase
-				.from('profiles')
-				.select('username')
-				.eq('id', user.id);
-
-			if (error) {
-				console.error(error);
-			}
-			console.log(profiles, 'profiles');
-			setUserProfile(profiles[0].username);
-		};
-		if (user) {
-			getUserProfiles();
-		}
-	}, [supabase, user]);
-
-	// if (!user) {
-	// 	return (
-	// 		<div>
-	// 			<Signup supabase={supabase} session={session} />
-	// 			<p>Not logged in</p>
-	// 			<ParisHero />
-	// 		</div>
-	// 	);
-	// }
 
 	return (
 		<div>
@@ -50,7 +20,6 @@ export default function Home() {
 				<link rel="icon" href="/favicon.ico" />
 			</Head>
 			<ParisHero />
-			{/* <p>Thanks for logging in! {userProfile}</p> */}
 		</div>
 	);
 }

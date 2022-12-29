@@ -1,9 +1,44 @@
-import React from 'react';
+import { useState, useEffect } from 'react';
+import { useUser, useSupabaseClient, useSession } from '@supabase/auth-helpers-react';
 
 import styles from '../../styles/components/Hero.module.css';
 
 const ParisHero = () => {
-	return <section className={styles.container}></section>;
+	const user = useUser();
+	const supabase = useSupabaseClient();
+	const [userProfile, setUserProfile] = useState(null);
+
+	useEffect(() => {
+		const getUserProfiles = async () => {
+			const { data: profiles, error } = await supabase
+				.from('profiles')
+				.select('username')
+				.eq('id', user.id);
+
+			if (error) {
+				console.error(error);
+			}
+			setUserProfile(profiles[0].username);
+		};
+		if (user) {
+			getUserProfiles();
+		}
+	}, [supabase, user]);
+
+	return (
+		<section className={styles.container}>
+			{!user && (
+				<div className={styles.hero}>
+					<p>Welcome to Student Travel! Please login to see our tours.</p>
+				</div>
+			)}
+			{user && (
+				<div className={styles.hero}>
+					<p>Thanks for logging in! {userProfile}</p>
+				</div>
+			)}
+		</section>
+	);
 };
 
 export default ParisHero;

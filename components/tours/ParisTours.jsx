@@ -1,8 +1,6 @@
 import React from 'react';
 
 const ParisTours = ({ tours }) => {
-	console.log(tours, 'parisTour component render');
-
 	return (
 		<div>
 			<h1>Paris Tours</h1>

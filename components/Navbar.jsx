@@ -29,6 +29,11 @@ const Navbar = () => {
 						Tours
 					</Link>
 				</li>
+				<li className="navbar__item">
+					<Link className={styles.link} href="/activities">
+						Activities
+					</Link>
+				</li>
 				{session ? (
 					<li onClick={handleLogout} style={{ cursor: 'pointer' }}>
 						<button>Logout</button>

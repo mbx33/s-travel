@@ -1,4 +1,5 @@
 .container {
 	height: 100vh;
+	padding: 15rem 0;
 	background-color: hsl(272, 44%, 23%);
 }
