@@ -3,25 +3,7 @@ import Image from 'next/image';
 import { useSession, useSupabaseClient, useUser } from '@supabase/auth-helpers-react';
 
 import styles from '../../styles/components/Cards.module.css';
-
-//create a like button with a heart icon
-//create a comment button with a comment icon
-//create a share button with a share icon
-
-const likeBtn = (
-	<button className={styles.likeBtn}>
-		<svg
-			xmlns="http://www.w3.org/2000/svg"
-			width="16"
-			height="16"
-			fill="currentColor"
-			className="bi bi-heart"
-			viewBox="0 0 16 16"
-		>
-			<path d="M8 1.314C3.82 1.314 1.5 4.134 1.5 7.5 1.5 11.642 8 16 8 16s6.5-4.358 6.5-8.5C14.5 4.134 12.18 1.314 8 1.314z" />
-		</svg>
-	</button>
-);
+import { FcLikePlaceholder, FcLike } from 'react-icons/fc';
 
 const ParisActivities = ({ activities, addFavorite, user, favorites }) => {
 	const [liked, setLiked] = useState(false);
@@ -30,20 +12,22 @@ const ParisActivities = ({ activities, addFavorite, user, favorites }) => {
 
 	useEffect(() => {
 		async function loadFavorites() {
-			const { data: userFavorites, error: error2 } = await supabase
+			const { data: favorites, error } = await supabase
 				.from('favorites')
-				.select('*')
+				.select(
+					`activity_id, liked, france_activities (
+      				id, name, description, images, price 
+    				)
+  				`
+				)
 				.eq('user_id', user.id);
 
-			//get france_activites data only if its in the user favorites
-			const filteredActivities = activities.filter((activity) => {
-				return userFavorites.some(
-					(favorite) => favorite.activity_id === activity.id
-				);
-			});
+			if (error) {
+				console.log(error);
+			}
 
-			console.log('userFavorites', filteredActivities);
-			setUserFavorites(filteredActivities);
+			// console.log('favorites', favorites);
+			setUserFavorites(favorites);
 		}
 
 		if (user) {
@@ -71,36 +55,28 @@ const ParisActivities = ({ activities, addFavorite, user, favorites }) => {
 						</h3>
 						<p className={styles.cardDescription}>{activity.description}</p>
 						{user && (
-							<div
-								onClick={() => {
-									console.log('clicked');
-									addFavorite(activity, user);
-								}}
-								className={styles.cardActions}
-							>
-								{likeBtn}
+							<div className={styles.cardActions}>
+								{userFavorites &&
+								userFavorites.find(
+									(favorite) => favorite.activity_id === activity.id
+								) ? (
+									<FcLike
+										size={25}
+										onClick={() => {
+											console.log('clicked');
+										}}
+									/>
+								) : (
+									<FcLikePlaceholder
+										size={25}
+										onClick={() => {
+											console.log('clicked');
+											addFavorite(activity, user);
+										}}
+									/>
+								)}
 							</div>
 						)}
-					</div>
-				))}
-			<h2>Favorites</h2>
-			{userFavorites &&
-				userFavorites.map((activity) => (
-					<div key={activity.id} className={styles.card}>
-						{activity.images && activity.images.length > 0 && (
-							<Image
-								className={styles.cardImage}
-								src={activity.images[0]}
-								alt={activity.name}
-								width={250}
-								height={250}
-							/>
-						)}
-						<h3 className={styles.cardTitle}>
-							{activity.name}
-							<span> ${activity.price}</span>
-						</h3>
-						<p className={styles.cardDescription}>{activity.description}</p>
 					</div>
 				))}
 		</>
