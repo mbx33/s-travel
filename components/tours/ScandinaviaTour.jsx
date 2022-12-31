@@ -1,9 +1,9 @@
 import React from 'react';
 
-const ParisTours = ({ tours }) => {
+const ScandinaviaTour = ({ tours }) => {
 	return (
 		<div>
-			<h1>Paris Tours</h1>
+			<h1>Scandinavian Tour</h1>
 			{tours &&
 				tours.map((tour) => {
 					const { name, base_price: price, description, itinerary } = tour;
@@ -30,4 +30,4 @@ const ParisTours = ({ tours }) => {
 	);
 };
 
-export default ParisTours;
+export default ScandinaviaTour;
