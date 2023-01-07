@@ -32,6 +32,11 @@ const Signup = ({ supabase }) => {
 			setLoading(false);
 			return;
 		}
+		if (!email || !username || !password || !passwordConfirm) {
+			setError('Please fill out all fields');
+			setLoading(false);
+			return;
+		}
 		const { user, error } = await supabase.auth.signUp({
 			email,
 			password,
@@ -65,55 +70,61 @@ const Signup = ({ supabase }) => {
 				{error && <p>{error}</p>}
 				<h2>Please create an account to book a tour</h2>
 				<form onSubmit={handleSubmit}>
-					<label className={styles.label} htmlFor="email">
-						Email
-					</label>
-					<input
-						className={styles.input}
-						type="email"
-						id="email"
-						value={email}
-						onChange={(e) => setEmail(e.target.value)}
-					/>
-					<label className={styles.label} htmlFor="username">
-						Username
-					</label>
-					<input
-						className={styles.input}
-						type="text"
-						id="username"
-						value={username}
-						onChange={(e) => setUsername(e.target.value)}
-					/>
-
-					<label className={styles.label} htmlFor="password">
-						Password
-					</label>
-					<input
-						className={styles.input}
-						type="password"
-						id="password"
-						value={password}
-						onChange={(e) => setPassword(e.target.value)}
-					/>
-					<label className={styles.label} htmlFor="passwordConfirm">
-						Confirm Password
-					</label>
-					<input
-						className={styles.input}
-						type="password"
-						id="passwordConfirm"
-						value={passwordConfirm}
-						onChange={(e) => setPasswordConfirm(e.target.value)}
-					/>
-
+					<div className={styles.inputGroup}>
+						<label className={styles.label} htmlFor="email">
+							Email
+						</label>
+						<input
+							className={styles.input}
+							type="email"
+							id="email"
+							value={email}
+							onChange={(e) => setEmail(e.target.value)}
+						/>
+					</div>
+					<div className={styles.inputGroup}>
+						<label className={styles.label} htmlFor="username">
+							Username
+						</label>
+						<input
+							className={styles.input}
+							type="text"
+							id="username"
+							value={username}
+							onChange={(e) => setUsername(e.target.value)}
+						/>
+					</div>
+					<div className={styles.inputGroup}>
+						<label className={styles.label} htmlFor="password">
+							Password
+						</label>
+						<input
+							className={styles.input}
+							type="password"
+							id="password"
+							value={password}
+							onChange={(e) => setPassword(e.target.value)}
+						/>
+					</div>
+					<div className={styles.inputGroup}>
+						<label className={styles.label} htmlFor="passwordConfirm">
+							Confirm Password
+						</label>
+						<input
+							className={styles.input}
+							type="password"
+							id="passwordConfirm"
+							value={passwordConfirm}
+							onChange={(e) => setPasswordConfirm(e.target.value)}
+						/>
+					</div>
 					<button className={styles.button} type="submit" disabled={loading}>
 						{loading ? 'Loading...' : 'Signup'}
 					</button>
 				</form>
 				<p>
 					Already have an account?{' '}
-					<Link href="/login" style={{ textDecoration: 'underline' }}>
+					<Link className={styles.link} href="/login">
 						Login
 					</Link>
 				</p>

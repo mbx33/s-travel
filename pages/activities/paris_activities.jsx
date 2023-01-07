@@ -27,6 +27,20 @@ const ParisActivitiesPage = () => {
 		setFavorites([...favorites, favorite]);
 	}
 
+	async function deleteFavorite(activity, user) {
+		const { data: favorite, error } = await supabase
+			.from('favorites')
+			.delete()
+			.eq('activity_id', activity.id)
+			.eq('user_id', user.id);
+
+		if (error) {
+			console.log(error);
+		}
+
+		setFavorites([...favorites]);
+	}
+
 	useEffect(() => {
 		async function loadData() {
 			let { data: activities, error } = await supabase
@@ -53,6 +67,7 @@ const ParisActivitiesPage = () => {
 				<ParisActivities
 					activities={activities}
 					addFavorite={createFavorite}
+					deleteFavorite={deleteFavorite}
 					user={user}
 					favorites={favorites}
 				/>

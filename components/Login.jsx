@@ -39,33 +39,37 @@ const Login = ({ supabase, session }) => {
 				{message && <p>{message}</p>}
 				{error && <p>{error}</p>}
 				<form onSubmit={handleSubmit}>
-					<label className={styles.label} htmlFor="email">
-						Email
-					</label>
-					<input
-						className={styles.input}
-						type="email"
-						id="email"
-						value={email}
-						onChange={(e) => setEmail(e.target.value)}
-					/>
-					<label className={styles.label} htmlFor="password">
-						Password
-					</label>
-					<input
-						className={styles.input}
-						type="password"
-						id="password"
-						value={password}
-						onChange={(e) => setPassword(e.target.value)}
-					/>
-					<button type="submit" disabled={loading}>
+					<div className={styles.inputGroup}>
+						<label className={styles.label} htmlFor="email">
+							Email
+						</label>
+						<input
+							className={styles.input}
+							type="email"
+							id="email"
+							value={email}
+							onChange={(e) => setEmail(e.target.value)}
+						/>
+					</div>
+					<div className={styles.inputGroup}>
+						<label className={styles.label} htmlFor="password">
+							Password
+						</label>
+						<input
+							className={styles.input}
+							type="password"
+							id="password"
+							value={password}
+							onChange={(e) => setPassword(e.target.value)}
+						/>
+					</div>
+					<button className={styles.button} type="submit" disabled={loading}>
 						{loading ? 'Loading...' : 'Login'}
 					</button>
 				</form>
-				<p>
+				<p style={{ margin: '1.3rem 0' }}>
 					No Account?{' '}
-					<Link href="/signup" style={{ textDecoration: 'underline' }}>
+					<Link href="/signup" className={styles.link}>
 						Signup
 					</Link>
 				</p>

@@ -1,18 +1,35 @@
 .main {
-	margin: 25% 0;
 	display: flex;
 	flex-direction: column;
 	justify-content: center;
 	align-items: center;
+	gap: 1.2rem;
+	width: 50%;
+	margin: 10% auto;
+	background-image: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)),
+		url('https://images.unsplash.com/photo-1502602898657-3e91760cbb34?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxzZWFyY2h8M3x8cGFyaXN8ZW58MHx8MHx8&auto=format&fit=crop&w=800&q=60');
+	background-size: cover;
+	background-position: center;
+	background-repeat: no-repeat;
+
+	border-radius: 0.6rem;
+}
+
+.inputGroup {
+	display: flex;
+	flex-direction: column;
 }
 
 /* trying to create an underline effect when hovered*/
 .button {
 	position: relative;
 	text-decoration: none;
+	border: none;
+	background-color: hsl(272, 44%, 53%);
 	color: #000;
 	padding: 0.225rem 0.95rem;
 	text-transform: uppercase;
+	margin: 0.775rem 0;
 }
 
 .button::before {
@@ -20,9 +37,9 @@
 	position: absolute;
 	width: 0;
 	height: 2px;
-	bottom: -2px;
+	bottom: -4px;
 	left: 0;
-	background-color: #000;
+	background-color: hsl(272, 44%, 53%);
 	transition: width 0.3s ease-in-out;
 }
 
@@ -31,17 +48,23 @@
 }
 
 .label {
-	font-size: 1.2rem;
+	font-size: 1.4rem;
+	/* background-color: red; */
+	text-align: center;
 }
 
 .input {
-	font-size: 1.2rem;
+	font-size: 1.3rem;
 	border: none; /* remove the default border */
 	outline: none; /* remove the default outline */
 	border-radius: 0.33rem;
 	padding: 0.225rem 0.5rem;
+	/* background-color: blue; */
 }
 
-.input:focus {
-	border-bottom: 5.2px solid black; /* add a bottom border when focused */
+.link {
+	position: relative;
+	text-decoration: underline;
+	font-size: 1.3rem;
+	color: hsl(272, 44%, 53%);
 }

@@ -17,7 +17,7 @@ const ToursPage = () => {
 	const [scandinaviaTour, setScandinaviaTour] = useState([]);
 
 	useEffect(() => {
-		async function loadData() {
+		async function loadParisData() {
 			const { data, error } = await supabase.from('france_tour').select('*');
 			setFranceTour(data);
 		}
@@ -32,7 +32,7 @@ const ToursPage = () => {
 		}
 		// Only run query once user is logged in.
 		loadScandinaviaData();
-		loadData();
+		loadParisData();
 	}, [supabase, user]);
 
 	return (

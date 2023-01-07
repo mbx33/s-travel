@@ -5,7 +5,13 @@ import { useSession, useSupabaseClient, useUser } from '@supabase/auth-helpers-r
 import styles from '../../styles/components/Cards.module.css';
 import { FcLikePlaceholder, FcLike } from 'react-icons/fc';
 
-const ParisActivities = ({ activities, addFavorite, user, favorites }) => {
+const ParisActivities = ({
+	activities,
+	addFavorite,
+	user,
+	favorites,
+	deleteFavorite,
+}) => {
 	const [liked, setLiked] = useState(false);
 	const supabase = useSupabaseClient();
 	const [userFavorites, setUserFavorites] = useState([]);
@@ -64,6 +70,7 @@ const ParisActivities = ({ activities, addFavorite, user, favorites }) => {
 										size={25}
 										onClick={() => {
 											console.log('clicked');
+											deleteFavorite(activity, user);
 										}}
 									/>
 								) : (

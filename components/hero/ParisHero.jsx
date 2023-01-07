@@ -29,12 +29,12 @@ const ParisHero = () => {
 		<section className={styles.container}>
 			{!user && (
 				<div className={styles.hero}>
-					<p>Welcome to Student Travel! Please login to see our tours.</p>
+					<p>Welcome to Student Travel!</p>
 				</div>
 			)}
 			{user && (
 				<div className={styles.hero}>
-					<p>Thanks for logging in! {userProfile}</p>
+					<p>{userProfile}, Welcome to student Travel</p>
 				</div>
 			)}
 		</section>
